@@ -1,4 +1,8 @@
-import os
+from datetime import datetime
+import os, time
+
+# get current time
+now = datetime.now()
 
 initial_dir = os.getcwd()
 
@@ -23,7 +27,20 @@ for file in os.listdir(path):
     src = path + '/' + file
     dst = path + '/' + 'image' + str(count)
 
+    # convert string to datetime object
+    created = datetime.strptime(time.ctime(os.path.getctime(src)), "%a %b %d %H:%M:%S %Y")
+
+    # calculate difference in minutes
+    minutes_diff = (now - created).total_seconds() / 60.0
+
+    # only files created within 30mins 
+    # from now should be changed
+    if minutes_diff > 30:
+        break
+
+    # get current file extension
     ext = os.path.splitext(file)[1]
+    # extensions to check
     ext_lst = [".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp"]
 
     if ext in ext_lst:  
@@ -57,7 +74,7 @@ if count > 10:
     print(count, "files moved to new directory.")
 
 else:
-    print("No new directory created.")
+    print("No directory created.")
 
 # change back to previous directory
 os.chdir(initial_dir)
