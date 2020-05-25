@@ -5,7 +5,7 @@ initial_dir = os.getcwd()
 path = input("Enter the path: ")
 print()
 
-# check whether the path is an existing directoyr
+# check whether the path is an existing directory
 isdir = os.path.isdir(path)
 
 while not isdir:
@@ -23,16 +23,12 @@ for file in os.listdir(path):
     src = path + '/' + file
     dst = path + '/' + 'image' + str(count)
 
-    if file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
-        if file.endswith(".png"):
-            # rename source path to destination path
-            os.rename(src, dst + '.png')
-        elif file.endswith(".jpg"):
-            # rename source path to destination path
-            os.rename(src, dst + '.jpg')
-        else:
-            # rename source path to destination path
-            os.rename(src, dst + '.jpeg')
+    ext = os.path.splitext(file)[1]
+    ext_lst = [".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp"]
+
+    if ext in ext_lst:  
+        # rename source path to destination path
+        os.rename(src, dst + ext)
 
         # increment count
         count += 1
