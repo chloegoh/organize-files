@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 import os, time
 
 # get current time
@@ -35,7 +35,7 @@ for file in os.listdir(path):
 
     # only files created within 30mins 
     # from now should be changed
-    if now - created > timedelta(minutes=30):
+    if minutes_diff > 30:
         break
 
     # get current file extension
